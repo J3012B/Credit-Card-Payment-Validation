@@ -1,0 +1,374 @@
+<!-- START -->
+<style>
+	#popup .remove-all-styles * {
+		all: revert;
+	}
+
+	#popup h2 {
+		font-weight: bold;
+		font-size: 24px;
+	}
+
+	#popup input[type="text"],
+	#popup input[type="email"] {
+		border: 1px solid #EBF0F6;
+		border-radius: 5px;
+		height: 40px;
+		padding: 10px;
+	}
+
+	@media (max-width: 900px) {
+		#popup #screen-1 {
+			display: flex;
+			flex-direction: column-reverse;
+		}
+	}
+
+	@media (min-width: 900px) {
+		#popup #screen-1 {
+			display: flex;
+			flex-direction: row;
+		}
+	}
+
+	#popup * {
+		color: #464650
+	}
+
+	#popup label,
+	p {
+		font-size: 16px;
+	}
+
+	#popup label {
+		font-weight: 600;
+	}
+
+	#popup .bold {
+		font-weight: 600;
+	}
+
+	#popup .lighter {
+		color: #9d9ea3;
+	}
+
+	#popup hr {
+		display: block;
+		height: 1px;
+		border: 0;
+		border-top: 1px solid #dadbe3;
+		margin: 1em 0;
+		padding: 0;
+	}
+
+	#popup .credit-card-icon {
+		width: 40px;
+	}
+
+	#popup .responsive-grid {
+		grid-template-columns: repeat(1, 1fr);
+	}
+
+	@media (min-width: 500px) {
+		#popup .short-responsive .responsive-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 900px) {
+		#popup :not(.short-responsive) .responsive-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	#popup button:hover {
+		background: #027dc2;
+	}
+
+	#popup button {
+		background: #00A3FF;
+		cursor: pointer;
+		border-radius: 5px;
+		color: white;
+		padding: 15px 30px;
+		border: none;
+		font-size: 18px;
+	}
+
+	#popup #screen-2 {
+		/* display: block; */
+		display: none;
+	}
+
+	.text-center {
+		text-align: center;
+	}
+
+	#popup #before-email-submit {
+		display: block;
+	}
+
+	#popup #after-email-submit {
+		display: none;
+	}
+
+	@media (min-width: 900px) {
+		#popup #screen-2-outer {
+			flex-direction: row;
+			display: flex;
+		}
+	}
+
+	@media (max-width: 900px) {
+		#popup #screen-2-outer {
+			flex-direction: column;
+			display: flex;
+		}
+	}
+</style>
+
+<script>
+	function onSubmitForm(event) {
+		const screen1 = document.getElementById("screen-1");
+		const screen2 = document.getElementById("screen-2");
+
+		screen1.style.display = "none";
+		screen2.style.display = "block";
+
+		event.preventDefault();
+	}
+
+	async function onSubmitEmail(e) {
+		e.preventDefault();
+
+		const email = document.getElementById("email-field").value;
+
+
+		try {
+			// TODO: Process email address (e.g. send to API endpoint)
+
+			const screen1 = document.getElementById("before-email-submit");
+			const screen2 = document.getElementById("after-email-submit");
+
+			screen1.style.display = "none";
+			screen2.style.display = "block";
+		} catch (e) {
+			alert("Something went wrong. Your email was not saved. Please try again.")
+		}
+
+		return false;
+	}
+</script>
+
+
+<div id="popup" class="modal remove-all-styles" style="padding: 0; overflow: auto;">
+	<div style="overflow: auto;">
+
+		<!-- SCREEN #1 -->
+		<div id="screen-1">
+			<div style="background: white; padding: 30px 30px;">
+				<form id="creditCardForm123" style="display: flex; flex-direction: column; "
+					onsubmit="onSubmitForm(event)" action="javascript:void(0);">
+					<h2>
+						Checkout
+					</h2>
+
+					<div style="margin-top: 40px;">
+						<label>Billed to</label>
+
+						<div class="responsive-grid" style="display: grid; gap: 20px; margin-top: 20px;">
+							<input type="text" placeholder="First Name*" required />
+							<input type="text" placeholder="Last Name*" required />
+							<input type="text" placeholder="Street*" required />
+							<input type="text" placeholder="Zip*" required />
+							<input type="text" placeholder="City*" required />
+							<input type="text" placeholder="Country*" required />
+						</div>
+					</div>
+
+
+
+					<div style="margin-top: 20px;">
+
+						<label>Card details</label>
+
+						<div class="responsive-grid" style="margin-top: 20px; display: grid; gap: 20px;">
+							<input type="text" placeholder="Card Number" required />
+							<div class="responsive-grid short-responsive" style="display: grid; gap: 20px;">
+								<input type="text" placeholder="MM/YY" required />
+								<input type="text" placeholder="CVC" required />
+							</div>
+						</div>
+
+						<div style="display: flex; flex-direction: row; gap: 5px; margin-top: 20px;">
+							<img class="credit-card-icon" src="https://turbolander.sirv.com/Web%20Assets/visa.png" />
+							<img class="credit-card-icon"
+								src="https://turbolander.sirv.com/Web%20Assets/mastercard.png" />
+							<img class="credit-card-icon" src="https://turbolander.sirv.com/Web%20Assets/jcb.png" />
+							<img class="credit-card-icon"
+								src="https://turbolander.sirv.com/Web%20Assets/american-express.png" />
+						</div>
+					</div>
+
+
+
+					<div style="margin-top: 40px">
+						<button id="pay-button-123">Pay
+							$50.00 Now</button>
+					</div>
+				</form>
+			</div>
+
+			<!-- PURCHASE DETAILS SECTION -->
+			<div style="background: #f5f6fa; padding: 50px 30px; padding-top: 50px;">
+				<div style="min-width: 250px">
+					<div style="display: flex; flex-direction: row; justify-content: space-between;">
+						<div style="display: flex; flex-direction: column; gap: 5px;">
+							<!-- TODO: Fill with product title -->
+							<p class="bold">
+								My Awesome App
+							</p>
+							<p class="lighter">
+								Subscription
+							</p>
+						</div>
+						<!-- TODO: Fill with actual price -->
+						<div style="display: flex; flex-direction: column; align-items: end; gap: 5px;">
+							<p class="bold">
+								$50.00
+							</p>
+							<p>
+								per month
+							</p>
+						</div>
+					</div>
+
+					<hr>
+
+					<div style="display: flex; flex-direction: column; gap: 12px;">
+						<div style="display: flex; flex-direction: row; justify-content: space-between;">
+							<p class="lighter">
+								Subtotal
+							</p>
+							<!-- TODO: Fill with actual price -->
+							<p class="lighter">
+								$50.00
+							</p>
+						</div>
+						<div style="display: flex; flex-direction: row; justify-content: space-between;">
+							<p>
+								Total
+							</p>
+							<!-- TODO: Fill with actual price -->
+							<p>
+								$50.00
+							</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div id="screen-2">
+			<div>
+				<div id="screen-2-outer">
+
+					<div style="background: #f5f6fa; padding: 30px;">
+						<!-- TODO: Fill with product title -->
+						<h2>
+							My Awesome App will be released soon
+						</h2>
+
+						<br>
+						<br>
+
+						<p>
+							<!-- TODO: Fill with product title -->
+							Thank you for showing interest in getting your hands on <span class="bold">My Awesome
+								App</span>,
+							an innovative app currently in development and gearing up for an exciting launch.
+
+							<br>
+							<br>
+
+							Rest assured, your privacy is our top priority. None of the information you just provided
+							was
+							stored by us; we are solely identifying individuals and businesses genuinely interested in
+							using
+							<!-- TODO: Fill with product title -->
+							My Awesome App at this point.
+
+							<br>
+							<br>
+
+							<!-- TODO: Fill with product title and actual prices -->
+							To ensure you are among the first to experience the benefits of My Awesome App, we extend a
+							special
+							pre-launch offer where we are offering you the app at half of the actual price (<span
+								class="bold">$25 / month</span> instead
+							of <span class="bold">$50 / month</span>).
+							To make sure to be eligible for that offer, please leave your email address and we'll let
+							you know
+							as soon as the app launches (we'll actually store the email address you enter here).
+
+							<br>
+							<br>
+
+							<!-- TODO: Fill with product title -->
+							Your enthusiasm and support are crucial to us, and we appreciate your commitment to being
+							part of
+							this exciting journey. Thank you once again for your interest in My Awesome App, and we
+							look
+							forward to delivering an exceptional product that exceeds your expectations.
+
+							<br>
+							<br>
+
+							Wishing you a fantastic day ahead!
+						</p>
+					</div>
+
+					<div style="padding: 50px 30px;">
+
+						<h2 class="text-center">
+							Exclusive Launch Deal
+						</h2>
+
+						<br>
+
+						<!-- TODO: Fill with actual prices -->
+						<h3 class="text-center"><span
+								style="text-decoration: line-through; font-size: 18px; margin-top: 20px;"
+								class="lighter">$50</span> $25
+							<span style="font-size: 18px;">/ Month</span>
+						</h3>
+
+						<br>
+
+						<!-- BEFORE SUBMITTING EMAIL -->
+						<div id="before-email-submit">
+							<form onsubmit="onSubmitEmail(event);" style="display: flex; flex-direction: column;">
+								<label style="margin-top: 20px;">Enter your email here</label>
+								<input id="email-field" type="email" placeholder="Email Address*" required
+									style="margin-top: 20px; width: 300px;" />
+
+								<button style="margin-top: 20px;">Submit</button>
+							</form>
+						</div>
+
+						<!-- AFTER SUBMITTING EMAIL -->
+						<div id="after-email-submit" style="min-width: 270px; width: fit-content">
+							<p>
+								Thanks for signing up. We'll email you as soon as the app is ready!
+							</p>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- END -->
